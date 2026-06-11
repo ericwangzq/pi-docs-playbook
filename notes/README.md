@@ -6,7 +6,7 @@
 
 ## 规则
 
-- 只在本目录（或 `skill-draft/` 其它草稿位置）写笔记，**绝不修改 `source/`**。`source/` 是上游镜像快照。
+- 只在本目录写笔记，**绝不修改 `source/`**。`source/` 是上游镜像快照。
 - 技术术语保留英文：`tool_call`、`session`、`compaction`、`extension`、`skill`、`prompt template` 等，不要翻译，方便和原文对应。
 - 每篇笔记都标注它对应的 `source/...` 路径和 pi 镜像 commit（见根目录 `README.md`，当前 `f429ddb`）。
 - 笔记是你的理解，不是上游保证。拿不准的地方标 TODO，回头核对原文或最新上游。
