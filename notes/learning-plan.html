@@ -153,6 +153,12 @@
   .footer-text { font-size: 13px; color: var(--text-2); }
 
   .center-text { text-align: center; font-size: 12px; color: var(--text-3); }
+
+  /* save bar */
+  .save-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; gap: 12px; }
+  .save-btn  { font-size: 12px; padding: 3px 12px; border-radius: 20px; border: 1px solid var(--stroke); background: var(--bg-card); color: var(--text-3); cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: background .15s, color .15s, border-color .15s; }
+  .save-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .save-btn.dirty { background: var(--accent); border-color: var(--accent); color: #fff; }
 </style>
 </head>
 <body>
@@ -188,7 +194,10 @@
       <div class="progress-seg" id="seg-active" style="background:var(--info);    width:0%"></div>
       <div class="progress-seg" id="seg-pending" style="background:var(--fill);   width:100%"></div>
     </div>
-    <p class="progress-hint">点击每个阶段右侧的状态标签切换：待开始 → 进行中 → 已完成</p>
+    <div class="save-bar">
+      <p class="progress-hint">点击每个阶段右侧的状态标签切换：待开始 → 进行中 → 已完成</p>
+      <button class="save-btn" id="save-btn" onclick="saveToFile()" title="下载更新后的文件，替换原文件后 git commit 即可追踪进度">保存到文件</button>
+    </div>
   </div>
 
   <!-- Callout: Chinese reading workflow -->
@@ -397,12 +406,31 @@ const STAGES = [
   },
 ];
 
-// ── State management (localStorage) ──────────────────────────────────────────
+// ── Progress state ─────────────────────────────────────────────────────────────
+// 这里是 git 追踪的真正状态。点击「保存到文件」后此处会更新，然后 git commit 即可。
+const SAVED_STATUSES = {
+  s0: 'done',
+  s1: 'pending',
+  s2: 'pending',
+  s3: 'pending',
+  s4: 'pending',
+  s5: 'pending',
+  s6: 'pending',
+  s7: 'pending',
+};
+
+// ── State management ───────────────────────────────────────────────────────────
+// localStorage 用于在「保存到文件」前暂存未提交的更改（类似编辑器的自动草稿）。
 const STORAGE_KEY = 'pi-plan-statuses';
 const STATUS_CYCLE = { pending: 'active', active: 'done', done: 'pending' };
 
 function loadStatuses() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+  // 以文件内的 SAVED_STATUSES 为基准，再合并 localStorage 中的未保存更改
+  const base = { ...SAVED_STATUSES };
+  try {
+    const overrides = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    return { ...base, ...overrides };
+  } catch { return base; }
 }
 function saveStatuses(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
@@ -412,6 +440,46 @@ function cycleStatus(id) {
   statuses[id] = STATUS_CYCLE[getStatus(id)];
   saveStatuses(statuses);
   updateAll();
+}
+
+function isDirty() {
+  return STAGES.some(s => getStatus(s.id) !== (SAVED_STATUSES[s.id] || 'pending'));
+}
+
+function saveToFile() {
+  const statusLines = STAGES.map(s => `  ${s.id}: '${getStatus(s.id)}',`).join('\n');
+  const newBlock = `const SAVED_STATUSES = {\n${statusLines}\n};`;
+
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  const updated = html.replace(/const SAVED_STATUSES = \{[\s\S]*?\};/, newBlock);
+
+  const blob = new Blob([updated], { type: 'text/html; charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'learning-plan.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  // 下载后视为已与文件同步，清除 localStorage 草稿
+  localStorage.removeItem(STORAGE_KEY);
+  updateAll();
+}
+
+function updateSaveButton() {
+  const btn = document.getElementById('save-btn');
+  if (!btn) return;
+  if (isDirty()) {
+    btn.textContent = '● 保存到文件';
+    btn.classList.add('dirty');
+    btn.title = '有未保存的进度更改，点击下载更新后的文件，替换原文件后 git commit';
+  } else {
+    btn.textContent = '保存到文件';
+    btn.classList.remove('dirty');
+    btn.title = '下载更新后的文件，替换原文件后 git commit 即可追踪进度';
+  }
 }
 
 // ── SVG helpers ───────────────────────────────────────────────────────────────
@@ -577,6 +645,8 @@ function updateAll() {
       card.classList.toggle('done', st === 'done');
     }
   });
+
+  updateSaveButton();
 }
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
