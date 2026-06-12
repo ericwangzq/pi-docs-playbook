@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>个人助手 Agent：边建边学的学习计划</title>
@@ -173,8 +172,8 @@
 
   <!-- Stats -->
   <div class="stat-grid" id="stat-grid">
-    <div class="stat-box" id="stat-done">
-      <div class="stat-value" id="val-done">0</div>
+    <div class="stat-box success" id="stat-done">
+      <div class="stat-value" id="val-done">3</div>
       <div class="stat-label">阶段已完成</div>
     </div>
     <div class="stat-box" id="stat-active">
@@ -182,7 +181,7 @@
       <div class="stat-label">进行中</div>
     </div>
     <div class="stat-box">
-      <div class="stat-value" id="val-pending">8</div>
+      <div class="stat-value" id="val-pending">5</div>
       <div class="stat-label">待开始</div>
     </div>
   </div>
@@ -190,13 +189,13 @@
   <!-- Progress bar -->
   <div class="progress-card">
     <div class="progress-bar" id="progress-bar">
-      <div class="progress-seg" id="seg-done"   style="background:var(--success); width:0%"></div>
+      <div class="progress-seg" id="seg-done" style="background: var(--success); width: 37.5%;"></div>
       <div class="progress-seg" id="seg-active" style="background:var(--info);    width:0%"></div>
-      <div class="progress-seg" id="seg-pending" style="background:var(--fill);   width:100%"></div>
+      <div class="progress-seg" id="seg-pending" style="background: var(--fill); width: 62.5%;"></div>
     </div>
     <div class="save-bar">
       <p class="progress-hint">点击每个阶段右侧的状态标签切换：待开始 → 进行中 → 已完成</p>
-      <button class="save-btn" id="save-btn" onclick="saveToFile()" title="下载更新后的文件，替换原文件后 git commit 即可追踪进度">保存到文件</button>
+      <button class="save-btn dirty" id="save-btn" onclick="saveToFile()" title="有未保存的进度更改，点击下载更新后的文件，替换原文件后 git commit">● 保存到文件</button>
     </div>
   </div>
 
@@ -217,7 +216,591 @@
   </div>
 
   <!-- Stage cards injected by JS -->
-  <div class="stack gap-8" id="stages"></div>
+  <div class="stack gap-8" id="stages"><div class="phase-label">A · 用熟并调成自己的品味</div><div class="stage-card done" id="card-s0" style="border-left-color: rgb(54, 133, 191);">
+      <div class="card-header" id="hdr-s0">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 0 · 跑通 pi + 配好中文导读</span>
+        <div class="card-meta">
+          <span class="days-label">1 天</span>
+          <button class="status-pill done" id="pill-s0" onclick="event.stopPropagation(); cycleStatus('s0')">已完成</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s0">
+        <div class="stack gap-16">
+          <p class="goal-text">把 pi 跑起来，理解四种运行模式，并搭好一套能持续用的中文导读工作流</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">在终端里让 pi 总结一个项目，并产出第一份中文导读笔记</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s0" onclick="toggleCS('docs',0)">
+              <div class="cs-swatch" style="background:#3685BF"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">3</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s0"><div class="doc-item">quickstart.md</div><div class="doc-item">usage.md</div><div class="doc-item">providers.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">安装 pi、配置 API key、跑通第一个 session，并建立中文导读笔记目录与模板</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s0" onclick="toggleCS('todos',0)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">6</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s0"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">npm install -g --ignore-scripts @earendil-works/pi-coding-agent</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">配置 ANTHROPIC_API_KEY 环境变量，或在 pi 内运行 /login</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">cd 到任意项目目录运行 pi，发第一条消息：用中文总结这个仓库</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">试 pi -p "list files"（print 模式）和 pi --mode json -p "hi"（json 模式），观察差异</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">用 pi @source/packages/coding-agent/docs/usage.md "用中文讲解核心概念，API 名称保留英文" 生成第一份导读</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">6.</span>
+        <span class="todo-text">把导读保存到 skill-draft/notes/（绝不写进 source/）</span>
+        
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">能说清 interactive / print / json / rpc 四种模式各自适用什么场景</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="stage-card done" id="card-s1" style="border-left-color: rgb(54, 133, 191);">
+      <div class="card-header" id="hdr-s1">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 1 · 架构地图 + 定制策略</span>
+        <div class="card-meta">
+          <span class="days-label">1 天</span>
+          <button class="status-pill done" id="pill-s1" onclick="event.stopPropagation(); cycleStatus('s1')">已完成</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s1">
+        <div class="stack gap-16">
+          <p class="goal-text">建立 pi 整体架构图，想清楚你打算用哪些方式把 pi 调成自己的助手</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">一张架构图 + 一份你自己的定制清单（哪些用 skill、哪些用 extension、哪些用 SDK）</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s1" onclick="toggleCS('docs',1)">
+              <div class="cs-swatch" style="background:#3685BF"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">4</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s1"><div class="doc-item">coding-agent/README.md（Philosophy + Customization）</div><div class="doc-item">sdk.md（Quick Start）</div><div class="doc-item">extensions.md（Quick Start）</div><div class="doc-item">agent/README.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">画出层次图，并列出一份「我要怎么把 pi 调成我的」定制清单</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s1" onclick="toggleCS('todos',1)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">5</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s1"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">读 README 的 Philosophy 部分，理解 pi 的最小内核理念</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">读 README 的 Customization 部分（Extensions / Skills / Prompt Templates / Packages）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">读 sdk.md 的 Quick Start 和 extensions.md 的 Quick Start（各前 60 行）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">画出层次图：pi-agent-core → coding-agent → extension / skill / SDK / RPC</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">用一句话分别回答：extension、skill、SDK、prompt template 各自定位是什么</span>
+        
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">能区分 extension（运行时 hook）/ skill（按需注入指令）/ SDK（编程式调用）/ prompt template（slash 快捷内容）</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="stage-card done" id="card-s2" style="border-left-color: rgb(119, 84, 217);">
+      <div class="card-header" id="hdr-s2">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 2 · 零代码塑形到你的品味</span>
+        <div class="card-meta">
+          <span class="days-label">2 天</span>
+          <button class="status-pill done" id="pill-s2" onclick="event.stopPropagation(); cycleStatus('s2')">已完成</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s2">
+        <div class="stack gap-16">
+          <p class="goal-text">不写代码，仅靠配置把 pi 的行为、语气、快捷命令、外观调成你的习惯</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">启动 pi 后行为和输出已经符合你的习惯，且能用 /你的命令 触发日常流程</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s2" onclick="toggleCS('docs',2)">
+              <div class="cs-swatch" style="background:#7754D9"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">4</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s2"><div class="doc-item">settings.md</div><div class="doc-item">prompt-templates.md</div><div class="doc-item">themes.md</div><div class="doc-item">keybindings.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">写自己的 AGENTS.md、调 settings.json、写 3-5 个日常 prompt 模板、选/改 theme</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s2" onclick="toggleCS('todos',2)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">5</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s2"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">写 ~/.pi/agent/AGENTS.md：你的工作习惯、语气、默认规范（如一律中文回答）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">调 ~/.pi/agent/settings.json：默认模型、compaction、retry 等</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">在 ~/.pi/agent/prompts/ 写 3-5 个日常 prompt 模板（如 /周报、/整理、/翻译）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">选一个 theme，或微调颜色，看 themes.md</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">改一两个 keybinding 到顺手</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">理解配置的加载优先级：全局 ~/.pi/agent/ vs 项目 .pi/，以及谁覆盖谁</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="phase-label">B · 用 coding + skill 做日常任务</div><div class="stage-card" id="card-s3" style="border-left-color: rgb(31, 138, 101);">
+      <div class="card-header" id="hdr-s3">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 3 · 第一个 skill（真实日常任务）</span>
+        <div class="card-meta">
+          <span class="days-label">2–3 天</span>
+          <button class="status-pill" id="pill-s3" onclick="event.stopPropagation(); cycleStatus('s3')">待开始</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s3">
+        <div class="stack gap-16">
+          <p class="goal-text">把一个你真实会用到的日常任务，按 Agent Skills 规范打包成可复用 skill</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">运行 /skill:你的技能名 就能完成一个真实日常任务</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s3" onclick="toggleCS('docs',3)">
+              <div class="cs-swatch" style="background:#1F8A65"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">2</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s3"><div class="doc-item">skills.md</div><div class="doc-item">dynamic-resources/SKILL.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">选一个真实任务（整理下载目录 / 生成周报 / 批量改文件名等），做成带脚本的 skill</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s3" onclick="toggleCS('todos',3)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">6</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s3"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">读 skills.md：理解 SKILL.md frontmatter（name、description）和 progressive disclosure</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">在 ~/.pi/agent/skills/ 下建技能目录，写 SKILL.md（description 要具体）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">在技能的 scripts/ 下放一个真正能跑的脚本（bash / node / python 均可）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">在 pi 里用 /skill:名字 触发，验证 agent 会读 SKILL.md 并调用脚本</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">在 references/ 下放按需加载的详细文档</span>
+        <span class="advanced-badge">进阶</span>
+      </div><div class="todo-row">
+        <span class="todo-num">6.</span>
+        <span class="todo-text">对照 agentskills.io 规范自查命名与字段</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">理解 skill 是「按需注入到 context 的指令包」，description 决定何时被加载</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="stage-card" id="card-s4" style="border-left-color: rgb(31, 138, 101);">
+      <div class="card-header" id="hdr-s4">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 4 · 第一个 extension（自定义 tool / 守卫）</span>
+        <div class="card-meta">
+          <span class="days-label">2–3 天</span>
+          <button class="status-pill" id="pill-s4" onclick="event.stopPropagation(); cycleStatus('s4')">待开始</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s4">
+        <div class="stack gap-16">
+          <p class="goal-text">用 TypeScript 写第一个 extension，给助手加一个自定义工具和一个安全守卫</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">让 agent 执行危险命令时弹出确认框被拦截；并能调用你注册的自定义 tool</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s4" onclick="toggleCS('docs',4)">
+              <div class="cs-swatch" style="background:#1F8A65"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">3</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s4"><div class="doc-item">extensions.md（全文）</div><div class="doc-item">examples/extensions/README.md</div><div class="doc-item">agent/hooks.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">写一个 extension：注册一个自定义 tool + 一个 tool_call 守卫 + 一个通知/命令</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s4" onclick="toggleCS('todos',4)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">6</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s4"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">读 extensions.md（重点：Events、ExtensionContext、Custom Tools、User Interaction）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">建 ~/.pi/agent/extensions/my-assistant.ts</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">用 pi.registerTool() 注册一个对你有用的自定义 tool</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">订阅 tool_call，检测危险命令（如 rm -rf），用 ctx.ui.confirm 询问，拒绝则 { block: true }</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">用 pi.registerCommand() 注册一个 /命令，或用 ctx.ui.notify 做提醒</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">6.</span>
+        <span class="todo-text">用 /reload 热重载 extension 并测试</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">理解 block / passthrough 机制，以及 ctx.ui（confirm / notify / select / input）</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="stage-card" id="card-s5" style="border-left-color: rgb(192, 133, 50);">
+      <div class="card-header" id="hdr-s5">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 5 · session / memory + 可恢复任务</span>
+        <div class="card-meta">
+          <span class="days-label">2 天</span>
+          <button class="status-pill" id="pill-s5" onclick="event.stopPropagation(); cycleStatus('s5')">待开始</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s5">
+        <div class="stack gap-16">
+          <p class="goal-text">理解 session 树、fork/resume、compaction，并搞清 JSONL 的边界</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">能在 /tree 里看到分支，并在文本编辑器里指出 fork 点的 parentId</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s5" onclick="toggleCS('docs',5)">
+              <div class="cs-swatch" style="background:#C08532"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">4</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s5"><div class="doc-item">session-format.md</div><div class="doc-item">sessions.md</div><div class="doc-item">compaction.md</div><div class="doc-item">agent/durable-harness.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">做一次 fork/resume，手查 JSONL 结构，理解 compaction 触发条件</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s5" onclick="toggleCS('todos',5)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">5</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s5"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">读 session-format.md，理解 entry 类型（header / user / assistant / tool_use / branch）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">做一段对话，用 /fork 分支、/tree 看树形结构</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">用编辑器打开 session.jsonl，找到 fork 点的 parentId</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">读 compaction.md，记录触发条件与 compaction entry 结构</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">读 durable-harness.md，想清楚你的日常任务如何做到可恢复</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">能讲清 pi JSONL 是 agent trace，不是你应用的 domain audit log——本质区别在哪</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="phase-label">C · 进阶：编程式 + 前端 + 多 agent</div><div class="stage-card" id="card-s6" style="border-left-color: rgb(219, 112, 75);">
+      <div class="card-header" id="hdr-s6">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 6 · SDK 编程式驱动 / headless</span>
+        <div class="card-meta">
+          <span class="days-label">2–3 天</span>
+          <button class="status-pill" id="pill-s6" onclick="event.stopPropagation(); cycleStatus('s6')">待开始</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s6">
+        <div class="stack gap-16">
+          <p class="goal-text">用 SDK 以编程方式驱动你的助手，让它能 headless 跑任务（可挂定时）</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">node/tsx 跑一个脚本，助手自动完成任务并把结果写到文件</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s6" onclick="toggleCS('docs',6)">
+              <div class="cs-swatch" style="background:#DB704B"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">2</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s6"><div class="doc-item">sdk.md（全文）</div><div class="doc-item">examples/sdk/README.md（01/05/06/11/13）</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">写 TS 脚本，用 createAgentSession 让助手无人值守完成一个日常任务</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s6" onclick="toggleCS('todos',6)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">6</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s6"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">新建项目，npm install @earendil-works/pi-coding-agent</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">按 Quick Start 跑通最小示例：订阅 text_delta 打印到 stdout</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">用 tools 限制工具集，用 customTools/defineTool 注入你的工具</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">把 Stage 4 的能力以编程方式接入，跑一个真实任务</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">对比 SessionManager.inMemory() 与 create() 的持久化差异</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">6.</span>
+        <span class="todo-text">用 cron / launchd 把脚本挂成定时任务</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">掌握 createAgentSession / prompt() / 事件订阅 / 编程式注入 tool 四件套</span>
+          </div>
+        </div>
+      </div>
+    </div><div class="stage-card" id="card-s7" style="border-left-color: rgb(184, 68, 139);">
+      <div class="card-header" id="hdr-s7">
+        <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6,4 10,8 6,12"></polyline>
+  </svg>
+        <span class="card-title">Stage 7 · 前端 + 多 agent 体验</span>
+        <div class="card-meta">
+          <span class="days-label">3–4 天</span>
+          <button class="status-pill" id="pill-s7" onclick="event.stopPropagation(); cycleStatus('s7')">待开始</button>
+        </div>
+      </div>
+      <div class="card-body" id="body-s7">
+        <div class="stack gap-16">
+          <p class="goal-text">给助手包一个简单 Web 前端，并体验多 agent 协作</p>
+          <div class="demo-row">
+            <span class="demo-label">可玩成果</span>
+            <span class="demo-text">浏览器里和助手对话；并能让两个 agent 串成 chain 完成一个任务</span>
+          </div>
+          <hr>
+          <div>
+            <div class="cs-header open" id="cs-docs-hdr-s7" onclick="toggleCS('docs',7)">
+              <div class="cs-swatch" style="background:#B8448B"></div>
+              <span class="cs-title">需要读的文档</span>
+              <span class="cs-count">3</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body open stack gap-4" id="cs-docs-body-s7"><div class="doc-item">rpc.md</div><div class="doc-item">tui.md</div><div class="doc-item">subagent/README.md</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">主任务</div>
+            <div class="task-text">前端：用 SDK 或 RPC 包一个简单 Web UI；多 agent：基于 subagent example 配 scout/worker</div>
+          </div>
+          <div>
+            <div class="cs-header" id="cs-todos-hdr-s7" onclick="toggleCS('todos',7)">
+              <span class="cs-title">子任务</span>
+              <span class="cs-count">5</span>
+              <svg class="cs-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,3 8,6 4,9"></polyline>
+  </svg>
+            </div>
+            <div class="cs-body stack gap-4" id="cs-todos-body-s7"><div class="todo-row">
+        <span class="todo-num">1.</span>
+        <span class="todo-text">读 rpc.md 开头的 Node 提示，决定前端用 SDK（同进程）还是 RPC（进程隔离）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">2.</span>
+        <span class="todo-text">搭一个最简 Web UI：输入框 + 流式输出（SDK 订阅事件 或 RPC 读 stdout）</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">3.</span>
+        <span class="todo-text">读 subagent/README.md，安装 example 的 extension 和 agents</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">4.</span>
+        <span class="todo-text">配置 scout / worker 两个 agent，跑一个 single / chain 工作流</span>
+        
+      </div><div class="todo-row">
+        <span class="todo-num">5.</span>
+        <span class="todo-text">把前端和多 agent 接起来：前端触发一个多 agent 任务</span>
+        <span class="advanced-badge">进阶</span>
+      </div></div>
+          </div>
+          <hr>
+          <div class="boundary-row">
+            <span class="boundary-label">完成标准</span>
+            <span class="boundary-text">能解释 SDK vs RPC 的选型依据；能让两个 agent 协作完成一个任务</span>
+          </div>
+        </div>
+      </div>
+    </div></div>
 
   <!-- Footer -->
   <hr>
@@ -410,8 +993,8 @@ const STAGES = [
 // 这里是 git 追踪的真正状态。点击「保存到文件」后此处会更新，然后 git commit 即可。
 const SAVED_STATUSES = {
   s0: 'done',
-  s1: 'pending',
-  s2: 'pending',
+  s1: 'done',
+  s2: 'done',
   s3: 'pending',
   s4: 'pending',
   s5: 'pending',
@@ -653,5 +1236,6 @@ function updateAll() {
 renderStages();
 updateAll();
 </script>
-</body>
-</html>
+
+
+</body></html>
